@@ -1,0 +1,54 @@
+
+version: '3.7'
+services:
+
+  server:
+    image: fl_chaos
+    build:
+      .
+    command: [ "python", "/code/server.py"]
+    environment:
+      FL_STRATEGY: FedAvg
+      # "FastAndSlow", "FaultTolerantFedAvg", "FedAdagrad", "FedAdam", "FedAvg",
+      # "FedAvgAndroid", "FedAvgM", "FedFSv0", "FedFSv1", "FedYogi", "QFedAvg"
+      FL_NUM_OF_ROUNDS: 100
+      FL_FRACTION_FIT: 0.1
+      FL_FRACTION_EVAL: 0.1
+      FL_MIN_EVAL_CLIENTS: 2
+      FL_MIN_FIT_CLIENTS: 2
+      FL_MIN_AVAILABLE_CLIENTS: 2
+      FL_BACKEND: pytorch
+      FL_DATASET: CIFAR100
+      FL_EVAL_DATASET: "true"
+    volumes:
+      - /home/moses/research/FDLC/container/code/:/code/
+      - ./profile/server/pytorch-CIFAR100-FedAvg-true:/profile/
+      - ./data/:/data/
+
+  client_0:
+    image: fl_chaos
+    depends_on:
+      - server
+    command: 'sh -c "sleep 20 && python /code/client.py"'
+    environment:
+      FL_SERVER: server
+      FL_BACKEND: pytorch
+      FL_DATASET: CIFAR100
+    volumes:
+      - /home/moses/research/FDLC/container/code/:/code/
+      - ./profile/client_0/pytorch-CIFAR100:/profile/
+      - ./data/:/data/
+
+  client_1:
+    image: fl_chaos
+    depends_on:
+      - server
+    command: 'sh -c "sleep 20 && python /code/client.py"'
+    environment:
+      FL_SERVER: server
+      FL_BACKEND: pytorch
+      FL_DATASET: CIFAR100
+    volumes:
+      - /home/moses/research/FDLC/container/code/:/code/
+      - ./profile/client_1/pytorch-CIFAR100:/profile/
+      - ./data/:/data/
