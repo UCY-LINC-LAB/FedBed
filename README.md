@@ -8,6 +8,7 @@ Federated Learning has become the de facto paradigm for training AI models under
 
 FedBed considers an FL deployment as a multilayered system, as depicted in the following Figure, with: (i) *FL Training Layer* being deployed on top, responsible for the FL training; (ii) *Data Layer* that is characterized by its dataset distribution; and (iii) *Execution Layer*, which illustrates the underlying compute and network resources. 
 
+![System Model and Configurations](https://github.com/UCY-LINC-LAB/FedBed/blob/main/figures/SystemModel.png?raw=true)
 
 ### FedBed Overview
 
@@ -18,6 +19,10 @@ The only precondition for users is to have an already installed virtual testbed 
 The following figure provides a high-level overview of the framework and its functionalities. Users start the evaluation by designing the FedBed's composable FL model in a YAML file and submitting it to the *FedBed Interface*, which is a Python light-weight library. 
 FedBed Interface can be utilized from interactive data analysis tools, e.g., Jupyter Notebooks, and users can re-use the model's YAML file and the notebooks to easily reproduce their experimental analysis.
 With FL model submitted, FedBed validates model's parameters and the available resources, and propagates the model to FedBed Controller.
+
+<p align="center">
+  <img src="https://github.com/UCY-LINC-LAB/FedBed/blob/main/figures/overview.png?raw=true" alt="System Model and Configurations"/>
+</p>
 
 Then, *FedBed Controller* coordinates the experimentation by, firstly, dividing the parameters into execution, data, and FL learning sub-parameters and invoking the respective subcomponents, namely, Execution, Data, and FL Learning Translator. 
 *Execution Translator* takes care of infrastructure-related parameters, generating resource limits by utilizing its resource distributions (e.g., Homogeneous, Gaussian, Pareto, etc.). 
@@ -41,6 +46,19 @@ These metrics empower users to evaluate trade-offs between model's performance a
 
 ### Publications
 
+FedBed's paper BibTeX citation:
+```
+@inproceedings{Symeonides2023,
+author    = {Moysis, Symeonides and Fotis, Nikolaidis and Demetris, Trihinas and George, Pallis and Marios D., Dikaiakos and Angelos, Bilas},
+title     = {FedBed: Benchmarking Federated Learning over Virtualized Edge Testbeds},
+year      = {2023},
+publisher = {Association for Computing Machinery},
+address   = {New York, NY, USA},
+booktitle = {Proceedings of the 16th IEEE/ACM International Conference on Utility and Cloud Computing (UCC 2023)},
+location  = {Messina, Italy},
+series    = {UCC ’23}
+}
+```
 
 
 ### Acknowledgements
